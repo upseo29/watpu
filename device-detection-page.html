@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตแอพพลิเคชั่น</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #000000;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        #message {
+            font-size: 24px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #update-btn {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        #update-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>อัปเดตแอพพลิเคชั่นเลย..</h1>
+    <p>แอพพลิเคชั่นใหม่ไฉไลกว่าเดิม</p>
+    <div id="message"></div>
+    <a id="update-btn" href="#" target="_blank">Update</a>
+
+    <script>
+        function detectDevice() {
+            var userAgent = navigator.userAgent.toLowerCase();
+            var message = document.getElementById('message');
+            var updateBtn = document.getElementById('update-btn');
+            
+            if (/iphone|ipad|ipod/.test(userAgent)) {
+                message.textContent = "สวัสดี iOS";
+                updateBtn.href = "https://www.apple.com/ios/app-store/";
+            } else if (/android/.test(userAgent)) {
+                message.textContent = "สวัสดี Android";
+                updateBtn.href = "https://play.google.com/store";
+            } else {
+                message.textContent = "สวัสดี อุปกรณ์ของคุณไม่ใช่ iOS หรือ Android";
+                updateBtn.style.display = 'none';
+            }
+        }
+
+        window.onload = detectDevice;
+    </script>
+</body>
+</html>
