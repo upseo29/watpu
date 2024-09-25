@@ -3,78 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>อัปเดตแอพพลิเคชั่น</title>
+    <title>ดาวน์โหลดแอพสุดสนุก!</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            background-color: #ffffff;
-            padding: 20px;
-            box-sizing: border-box;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffecd2);
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 1;
         }
         h1 {
-            color: #ff0000;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #000000;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        #message {
-            font-size: 24px;
-            padding: 20px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            color: #333;
+            font-size: 2.5em;
             margin-bottom: 20px;
-            text-align: center;
         }
-        #update-btn {
-            font-size: 18px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
+        #downloadButton {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF512F, #DD2476);
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 15px 30px;
             text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        #update-btn:hover {
-            background-color: #45a049;
+        #downloadButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .sticker {
+            position: absolute;
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
     </style>
 </head>
 <body>
-    <h1>อัปเดตแอพพลิเคชั่นเลย..</h1>
-    <p>แอพพลิเคชั่นใหม่ไฉไลกว่าเดิม</p>
-    <div id="message"></div>
-    <a id="update-btn" href="#" target="_blank">Update</a>
+    <div class="container">
+        <h1>ดาวน์โหลดแอพสุดสนุก!</h1>
+        <p>พร้อมสนุกกับประสบการณ์ใหม่แล้วหรือยัง?</p>
+        <a id="downloadButton" href="#">ดาวน์โหลดเลย!</a>
+    </div>
 
     <script>
-        function detectDevice() {
-            var userAgent = navigator.userAgent.toLowerCase();
-            var message = document.getElementById('message');
-            var updateBtn = document.getElementById('update-btn');
+        function detectOS() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(userAgent)) {
+                return 'Android';
+            }
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'iOS';
+            }
+            return 'Unknown';
+        }
+
+        function updateDownloadButton() {
+            const os = detectOS();
+            const button = document.getElementById('downloadButton');
             
-            if (/iphone|ipad|ipod/.test(userAgent)) {
-                message.textContent = "สวัสดี iOS";
-                updateBtn.href = "https://www.apple.com/ios/app-store/";
-            } else if (/android/.test(userAgent)) {
-                message.textContent = "สวัสดี Android";
-                updateBtn.href = "https://play.google.com/store";
+            if (os === 'Android') {
+                button.href = 'https://play.google.com/store/apps/details?id=com.yourapp'; // แทนที่ด้วยลิงก์ Google Play Store จริง
+                button.textContent = 'ดาวน์โหลดสำหรับ Android';
+            } else if (os === 'iOS') {
+                button.href = 'https://apps.apple.com/app/id123456789'; // แทนที่ด้วยลิงก์ App Store จริง
+                button.textContent = 'ดาวน์โหลดสำหรับ iOS';
             } else {
-                message.textContent = "สวัสดี อุปกรณ์ของคุณไม่ใช่ iOS หรือ Android";
-                updateBtn.style.display = 'none';
+                button.href = '#';
+                button.textContent = 'ดาวน์โหลด (เยี่ยมชมจากมือถือ)';
             }
         }
 
-        window.onload = detectDevice;
+        function createStickers() {
+            const stickers = ['🎉', '🚀', '🌈', '💖', '🎮', '🍕', '🎵', '📱'];
+            const body = document.body;
+            
+            stickers.forEach((sticker, index) => {
+                const stickerElement = document.createElement('div');
+                stickerElement.className = 'sticker';
+                stickerElement.textContent = sticker;
+                stickerElement.style.left = `${Math.random() * 100}vw`;
+                stickerElement.style.top = `${Math.random() * 100}vh`;
+                stickerElement.style.animationDelay = `${index * 0.5}s`;
+                body.appendChild(stickerElement);
+            });
+        }
+
+        window.onload = function() {
+            updateDownloadButton();
+            createStickers();
+        };
     </script>
 </body>
 </html>
